@@ -9,7 +9,7 @@ ako je matematicka operacija valjana, iskoristiti tu operaciju nad 2 broja
 ---------------------------------------------------------------------
 molim samo da kolege koji riješe, da ne podjele odma rjesenje nego da eventualno pomogu kolegama s razmisljanjem
 mozete i meni poslati rjesenje ako ste na tragu, pa prokomentiramo privatno
-oba zadatka mozete rijesiti sa stvarima koje smo ucili
+oba zadatka mozete rijesiti sa stvarima koje smo ucili1
 """
 #ZADATAK 1 - KALKULATOR
 print(
