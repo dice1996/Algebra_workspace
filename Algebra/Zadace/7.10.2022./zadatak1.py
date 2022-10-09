@@ -56,13 +56,13 @@ while flag:
     except:
         print("Unos broja nije bio uspjesan. Pokusaj ponovno!\n\n")
 
-if operacija is "+":
+if operacija == "+":
     rezultat = prviBroj + drugiBroj
-elif operacija is "-":
+elif operacija == "-":
     rezultat = prviBroj - drugiBroj
-elif operacija is "*":
+elif operacija == "*":
     rezultat = prviBroj * drugiBroj
-elif operacija is "/":
-    rezultat = round(prviBroj / drugiBroj, 2)
-
-print(f"Rezultat računske operacije {operacija} je {rezultat}") 
+elif operacija == "/":
+    rezultat = prviBroj / drugiBroj
+    
+print(f"Rezultat računske operacije {operacija} je {round(rezultat, 2)}")
