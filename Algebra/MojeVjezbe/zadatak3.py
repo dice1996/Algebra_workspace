@@ -1,4 +1,6 @@
-"""Write a program to count the occurence of even number and odd number between the range"""
+"""
+Write a program to count the occurence of even number and odd number between the range
+"""
 
 prviBroj = int(input("Unesi prvi broj raspona: "))
 drugiBroj = int(input("Unesi drugi broj raspona: "))
