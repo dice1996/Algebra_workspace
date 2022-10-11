@@ -29,15 +29,12 @@ prviBroj = None
 drugiBroj = None
 rezultat = None
 
-while flag:
+while operacija not in znakovi:
     operacija = input("Unesi jedan od znakova za racunsku operaciju:\n'+', '-', '*', '/'\nUnos: ")
     if operacija not in znakovi:
-        print("\nNije ispravna racunska operacija unesena.\nPokusaj ponovno!\n\n")
-    else:
-        flag = 0
+         print("\nNije ispravna racunska operacija unesena.\nPokusaj ponovno!\n\n")
 
 #Unos prvog broja
-flag = 1
 
 while flag:
     try:
