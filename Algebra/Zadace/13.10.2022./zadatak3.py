@@ -15,4 +15,4 @@ for i in range(UNOS):
             print("Uneseno nije cijeli broj. Pokusaj ponovno!")
 
 lista.sort(reverse=True)
-print(f"Prvi najveci uneseni broj je {lista[0]}; Drugi najveci uneseni broj je {lista[1]}")
+print(f"Drugi najveci uneseni broj je {lista[1]}")

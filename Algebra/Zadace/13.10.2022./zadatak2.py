@@ -8,5 +8,5 @@ novaLista = []
 
 for item in lista:
     if item not in novaLista:
-        novaLista.append(item)
+        novaLista.append(item) 
 print(f"Lista bez duplikata izgleda ovako: {novaLista}")
