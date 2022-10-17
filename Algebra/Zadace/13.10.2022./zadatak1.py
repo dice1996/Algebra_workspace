@@ -11,7 +11,7 @@ UNOS = 10
 for i in range(UNOS):
     while True:
         try:
-            pomocna = int(input(f"Unesi {i + 1} cijeli broj: "))
+            pomocna = int(input(f"Unesi {i + 1}. cijeli broj: "))
             if pomocna not in brojevi:
                 brojevi.append(pomocna)
                 break
