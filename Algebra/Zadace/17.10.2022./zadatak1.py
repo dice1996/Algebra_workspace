@@ -19,7 +19,7 @@ for i in range(BROJ_PREDMETA):
                     predmeti[ime] = int(ocjena)
                     break
                 else:
-                    print("Nije unesena ispravna ocjena. Posukaj ponovno!")
+                    print("Nije unesena ispravna ocjena. Pokusaj ponovno!")
             break    
         else:
             print("Ponovi unos jer je ovaj predmet već unesen!")
