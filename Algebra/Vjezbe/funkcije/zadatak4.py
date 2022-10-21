@@ -1,4 +1,4 @@
-from pomocne_funkcije import unosBroja, brojPonavljanja, provjera
+from pomocne_funkcije import *
 counterPar = 0
 counterNepar = 0
 
