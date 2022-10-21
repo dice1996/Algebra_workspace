@@ -1,27 +1,30 @@
-def unosBroja(listaBrojeva, brojPonavljanja):
-    for i in range(brojPonavljanja):
-        flag = 1
-        while flag:
-            try:
-                unos = int(input(f"Unesi {i + 1}. cijeli broj: "))
-                flag = 0
-                listaBrojeva.append(unos)
-            except:
-                print("Uneseno nije broj! Pokušaj ponovno!")
-    return listaBrojeva
-def brojPonavljanja():
-    flag = 1
-    while flag:
+def unesiCijeliBroj(text = None, index = None):
+    while True:
         try:
-            brojUnosa = int(input("Unesi koliko brojeva zelis upisati: "))
-            if brojUnosa >= 0:
-                flag = 0
+            if text is None and index is None:
+                return int(input("Unesi broj: "))
+            elif text is None and index is not None:
+                return int(input(f"Unesi {index}. broj: "))
             else:
-                print("Broj ponavljanja ne moze biti negativan! Pokusaj ponovno!")
+                return int(input(text))
         except:
-            print("Uneseno nije broj! Pokušaj ponovno!")
+            print("Krivi unos")
+
+def unosBroja(lista, brojPonavljanja):
+    for i in range(brojPonavljanja):
+        lista.append(unesiCijeliBroj(index = i+1))
+    return lista
+
+def brojPonavljanja(text):
+    while True:
+        brojUnosa = unesiCijeliBroj(text)
+        if brojUnosa >= 0:
+            break
+        else:
+            print("Broj ne moze biti negativan! Pokusaj ponovno!")
     return brojUnosa
-def provjera(listaBrojeva: list):
+
+def countParNepar(listaBrojeva: list):
     par = 0
     nepar = 0
     for item in listaBrojeva:
@@ -30,3 +33,31 @@ def provjera(listaBrojeva: list):
         else:
             nepar += 1
     return par, nepar
+
+def unosPredmeta(predmeti : dict, BROJ_PREDMETA, listaOcjena):
+    for i in range(BROJ_PREDMETA):
+        while True:
+            ime = input("Unesi ime predmeta: ").upper()
+            if ime not in predmeti.keys():
+                ocjena = unesiCijeliBroj(f"Unesi ocjenu za predmet {ime}: ")
+                if ocjena in listaOcjena:
+                    predmeti[ime] = int(ocjena)  
+                    break              
+                else:
+                    print("Nije unesena ispravna ocjena. Pokusaj ponovno!")
+            else:
+                print("Ponovi unos jer je ovaj predmet već unesen!")
+    return predmeti
+
+def provjeraPredmeta (predmeti: dict, suma):
+    najnizaOcjena = []
+    for predmet in predmeti:
+        if najnizaOcjena == []:
+            najnizaOcjena.append(predmet) 
+            najnizaOcjena.append(predmeti[predmet])
+        elif najnizaOcjena[1] > predmeti[predmet]:
+            najnizaOcjena.clear()
+            najnizaOcjena.append(predmet) 
+            najnizaOcjena.append(predmeti[predmet])
+    suma += predmeti[predmet]
+    return najnizaOcjena, suma

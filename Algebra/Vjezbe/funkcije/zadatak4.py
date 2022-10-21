@@ -4,9 +4,9 @@ counterNepar = 0
 
 listaBrojeva = []
 
-brojUnosa = brojPonavljanja()
+brojUnosa = brojPonavljanja("Unesi koliko brojeva zelis unijeti: ")
 listaBrojeva = unosBroja(listaBrojeva, brojUnosa)
-counterPar, counterNepar = provjera(listaBrojeva)
+counterPar, counterNepar = countParNepar(listaBrojeva)
     
 if listaBrojeva == []:
     print("Nista nije uneseno! Program zavrsava...")
