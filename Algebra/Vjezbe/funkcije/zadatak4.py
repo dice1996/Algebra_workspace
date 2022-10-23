@@ -5,7 +5,7 @@ counterNepar = 0
 listaBrojeva = []
 
 brojUnosa = brojPonavljanja("Unesi koliko brojeva zelis unijeti: ")
-listaBrojeva = unosBroja(listaBrojeva, brojUnosa)
+listaBrojeva = unosBroja(brojUnosa)
 counterPar, counterNepar = countParNepar(listaBrojeva)
     
 if listaBrojeva == []:
