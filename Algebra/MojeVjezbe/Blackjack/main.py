@@ -24,6 +24,7 @@ def dijeli_karte(listaKarata: list, deck = []):
             deck.append(listaKarata[index])
     else:
         deck.append(listaKarata[randint(0, 12)])
+    return deck
 
 def izracun_rezultata(deck: list): 
     if sum(deck) == 21 and len(deck) == 2:
@@ -64,26 +65,28 @@ def igra():
     while not igra_gotova:        
         rez_igrac = izracun_rezultata(igrac)
         rez_house = izracun_rezultata(house)
-        print(f"Tvoje karte su {igrac}, tvoj rezultat je {rez_igrac}.")
-        print(f"House ima karte {house}, rezultat je {rez_house}.")
         
         if rez_igrac == 0 or rez_house == 0 or rez_igrac > 21:
+            print(f"Tvoje karte su {igrac} dok house ima karte {house}")
             igra_gotova = True
-        else:
+        elif rez_igrac != 0 or rez_house != 0:
+            print(f"Tvoje karte su {igrac}, tvoj rezultat je {rez_igrac}.")
+            print(f"House ima karte {house}, rezultat je {rez_house}.")
+        if not igra_gotova:    
             ponovnoVuci = input("Zelis li vuci novu kartu (y/n): ").lower()
 
             if ponovnoVuci == "y":
                 dijeli_karte(karte, igrac)
                 rez_igrac = izracun_rezultata(igrac)
             else:
-                igra_gotova = True
+                    igra_gotova = True
         
         while rez_house != 0 and rez_house < 17:
             dijeli_karte(karte, house)
             rez_house = izracun_rezultata(house)
-
-        print(f"Tvoj konacni deck je {igrac}, konacni rezultat je {rez_igrac}.")
-        print(f"House konacni deck je {house}, konacni rezultat je {rez_house}.")
+        if rez_house != 0 or rez_igrac != 0:
+            print(f"Tvoj konacni deck je {igrac}, konacni rezultat je {rez_igrac}.")
+            print(f"House konacni deck je {house}, konacni rezultat je {rez_house}.")
         print(usporedbaRezultata(rez_igrac, rez_house))
         igra_gotova = True
 
