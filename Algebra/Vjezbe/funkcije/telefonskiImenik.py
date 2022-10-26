@@ -39,8 +39,9 @@ def ispisIzbornika(izbornik):
 
 def unosOpcije(izbornik):
     while True:
+        print("GLAVNI IZBORNIK\n")
         ispisIzbornika(izbornik)
-        izbor = unesiCijeliBroj("Unesi opciju iz gornjeg izbornika: ")
+        izbor = unesiCijeliBroj("\nUnesi opciju iz gornjeg izbornika: ")
         if izbor not in izbornik.keys():
             print("Unije validan unos! Pokusaj ponovno!")
             time.sleep(2)
