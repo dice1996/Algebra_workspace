@@ -81,13 +81,14 @@ def ispisImenika(imenik: list, index = None):
     print(f"{t}\n")
 
 def ispisPoIndexu(imenik: list):
-    while True:
-        try:
-            izbor = unesiCijeliBroj("Unesi ID kontakta: ")
-            ispisImenika(imenik, izbor)
-            break
-        except:
-            print("Pogrešan ID kontakta, pokusaj ponovno!")
+    try:
+        izbor = unesiCijeliBroj("Unesi ID kontakta: ")
+        spisImenika(imenik, izbor)
+        
+    except:
+        print("Pogrešan ID kontakta, povratak u glavni izbornik!")
+        time.sleep(2)
+        system("clear")
 
 def brisanjeKontakta(imenik: list):
     ispisImenika(imenik)
@@ -113,19 +114,17 @@ def izmjenaKontakta(imenik: list):
     system("clear")
     ispisImenika(imenik)
     if imenik != []:
-        while True:
-            try:
-                izbor = unesiCijeliBroj("Unesi ID kontakta: ")
-                uniqeKontakt = imenik[izbor-1]
-                uniqeKontakt["ime"] = input("Unesi ime kontakta: ")
-                uniqeKontakt["prezime"] = input("Unesi prezime kontakta: ")
-                uniqeKontakt["brojTelefona"] = input("Unesi telefonski broj kontakta: ")
-                uniqeKontakt["vrijemeKreiranjaZapisa"] = int(dt.now().timestamp())
-                print("Promjena napravljena! Povratak u glavni izbornik....")
-                time.sleep(2)
-                system("clear")
-                break
-            except:
+        try:
+            izbor = unesiCijeliBroj("Unesi ID kontakta: ")
+            uniqeKontakt = imenik[izbor-1]
+            uniqeKontakt["ime"] = input("Unesi ime kontakta: ")
+            uniqeKontakt["prezime"] = input("Unesi prezime kontakta: ")
+            uniqeKontakt["brojTelefona"] = input("Unesi telefonski broj kontakta: ")
+            uniqeKontakt["vrijemeKreiranjaZapisa"] = int(dt.now().timestamp())
+            print("Promjena napravljena! Povratak u glavni izbornik....")
+            time.sleep(2)
+            system("clear") 
+        except:
                 print("Pogrešan ID kontakta, pokusaj ponovno!")
     else:
         print("Imenik prazan. Povratak u glavni izbornik...")
