@@ -6,7 +6,7 @@ prosjekOcjena = None
 predmeti = {}
 suma = 0
 
-def unosPredmeta(predmeti : dict, BROJ_PREDMETA, listaOcjena):
+def unosPredmeta(BROJ_PREDMETA, listaOcjena):
     for i in range(BROJ_PREDMETA):
         while True:
             ime = input("Unesi ime predmeta: ").upper()
@@ -21,26 +21,27 @@ def unosPredmeta(predmeti : dict, BROJ_PREDMETA, listaOcjena):
                 print("Ponovi unos jer je ovaj predmet već unesen!")
     return predmeti
 
-def provjeraPredmeta (predmeti: dict, suma):
+def provjeraPredmeta (suma):
     najnizaOcjena = []
     for predmet in predmeti:
         if najnizaOcjena == []:
             najnizaOcjena.append(predmet) 
             najnizaOcjena.append(predmeti[predmet])
-            suma = predmeti[predmet]
         elif najnizaOcjena[1] > predmeti[predmet]:
             najnizaOcjena.clear()
             najnizaOcjena.append(predmet) 
             najnizaOcjena.append(predmeti[predmet])
-            suma += predmeti[predmet]
+        suma += predmeti[predmet]
     
     return najnizaOcjena, suma
 
-BROJ_PREDMETA = brojPonavljanja("Unesi broj predmeta: ")
-predmeti = unosPredmeta(predmeti, BROJ_PREDMETA, listaOcjena)
-najnizaOcjena, suma = provjeraPredmeta(predmeti, suma)
+if __name__ == "__main__":
 
-prosjekOcjena = suma / BROJ_PREDMETA
+    BROJ_PREDMETA = brojPonavljanja("Unesi broj predmeta: ")
+    predmeti = unosPredmeta(BROJ_PREDMETA, listaOcjena)
+    najnizaOcjena, suma = provjeraPredmeta(suma)
 
-print(f"Predmet s najnižom ocjenom {najnizaOcjena[1]} je {najnizaOcjena[0]}.")
-print(f"Prosjek svih unesenih ocjena je {prosjekOcjena}")
+    prosjekOcjena = suma / BROJ_PREDMETA
+
+    print(f"Predmet s najnižom ocjenom {najnizaOcjena[1]} je {najnizaOcjena[0]}.")
+    print(f"Prosjek svih unesenih ocjena je {prosjekOcjena}")
