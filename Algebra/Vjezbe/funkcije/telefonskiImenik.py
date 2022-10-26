@@ -84,7 +84,7 @@ def ispisImenika(imenik: list, index = None):
 def ispisPoIndexu(imenik: list):
     try:
         izbor = unesiCijeliBroj("Unesi ID kontakta: ")
-        spisImenika(imenik, izbor)
+        ispisImenika(imenik, izbor)
         
     except:
         print("Pogrešan ID kontakta, povratak u glavni izbornik!")
