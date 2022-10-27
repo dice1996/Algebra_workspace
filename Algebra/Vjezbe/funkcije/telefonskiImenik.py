@@ -160,7 +160,6 @@ def odabirIzmjenaKontakta(imenik: list):
                 print("Pogrešan ID kontakta, pokusaj ponovno!")
     else:
         print("Imenik prazan. Povratak u glavni izbornik...")
-    
     time.sleep(2)
     system("clear")
     ispisImenika(imenik)
