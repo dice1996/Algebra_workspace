@@ -16,6 +16,19 @@ Napraviti izbornik:
 Aplikacija se vrti dok korisnik ne pritisne 0
 Ako se odabere bilo što osim navedenih funkcija, vratiti poruku da opcija ne postoji
 """
+"""
+            uniqeKontakt = imenik[izbor-1]
+            uniqeKontakt["ime"] = input("Unesi ime kontakta: ")
+            uniqeKontakt["prezime"] = input("Unesi prezime kontakta: ")
+            uniqeKontakt["brojTelefona"] = input("Unesi telefonski broj kontakta: ")
+            uniqeKontakt["vrijemeKreiranjaZapisa"] = int(dt.now().timestamp())
+            print("Promjena napravljena! Povratak u glavni izbornik....")
+            time.sleep(2)
+            system("clear") 
+"""
+
+
+
 from os import system
 from pomocne_funkcije import *
 import time
@@ -29,6 +42,14 @@ glavniIzbornik = {
     4: "Izmjena kontakta",
     5: "Ispis kontakata po ID-u",
     0: "Izlaz iz imenika"
+}
+
+pomocniIzbornik = {
+    1: "Promjena imena",
+    2: "Promjena prezimena",
+    3: "Promjena broja telefona",
+    4: "Promjena svih informacija",
+    0: "Odustani"
 }
 
 imenik = [] #lista kontakata dict kontakt
@@ -71,11 +92,11 @@ def unosKontakta(imenikKontakta: list):
 
 def ispisImenika(imenik: list, index = None):
     system("clear")
-    t = PrettyTable(["ID", "IME", "PREZIME", "KONTAKT BROJ", "DATUM I VRIJEME"], padding_width = 4)
+    t = PrettyTable(["ID", "IME", "PREZIME", "KONTAKT BROJ", "VRIJEME I DATUM"], padding_width = 4)
     if index == None:
         print(f"Imenik sadrži {len(imenik)} kontakta:")
         for kontakt in imenik:
-            t.add_row([kontakt["id"], kontakt["ime"], kontakt["prezime"], kontakt["brojTelefona"], dt.fromtimestamp(kontakt["vrijemeKreiranjaZapisa"])])
+            t.add_row([kontakt["id"], kontakt["ime"], kontakt["prezime"], kontakt["brojTelefona"], dt.fromtimestamp(kontakt["vrijemeKreiranjaZapisa"]).strftime("%H:%M:%S - %d.%m.%Y.")])
     else:
         uniqeKontakt = imenik[index-1]
         t.add_row([uniqeKontakt["id"], uniqeKontakt["ime"], uniqeKontakt["prezime"], uniqeKontakt["brojTelefona"], dt.fromtimestamp(uniqeKontakt["vrijemeKreiranjaZapisa"])])   
@@ -111,26 +132,54 @@ def promjenaIndexa(imenik: list):
         count += 1
     return imenik
 
-def izmjenaKontakta(imenik: list):
+def odabirIzmjenaKontakta(imenik: list):
     system("clear")
-    ispisImenika(imenik)
     if imenik != []:
         try:
-            izbor = unesiCijeliBroj("Unesi ID kontakta: ")
+            izbor = unesiCijeliBroj("Unesi ID kontakta za izmjenu: ")
+            ispisImenika(imenik, izbor)
             uniqeKontakt = imenik[izbor-1]
-            uniqeKontakt["ime"] = input("Unesi ime kontakta: ")
-            uniqeKontakt["prezime"] = input("Unesi prezime kontakta: ")
-            uniqeKontakt["brojTelefona"] = input("Unesi telefonski broj kontakta: ")
-            uniqeKontakt["vrijemeKreiranjaZapisa"] = int(dt.now().timestamp())
-            print("Promjena napravljena! Povratak u glavni izbornik....")
-            time.sleep(2)
-            system("clear") 
+            print("\nIZBORNIK PROMJENE\n")
+            ispisIzbornika(pomocniIzbornik)
+            opcija = unesiCijeliBroj("\nUnesi opciju iz gornjeg izbornika: ")
+            if opcija == 1:
+                uniqeKontakt = IzmjenaKontakta(uniqeKontakt, prezime=uniqeKontakt["prezime"], brojTelefona=uniqeKontakt["brojTelefona"])
+                print("Promjena napravljena! Povratak u glavni izbornik....")
+            elif opcija == 2:
+                uniqeKontakt = IzmjenaKontakta(uniqeKontakt, ime=uniqeKontakt["ime"], brojTelefona=uniqeKontakt["brojTelefona"])
+                print("Promjena napravljena! Povratak u glavni izbornik....")
+            elif opcija == 3:
+                uniqeKontakt = IzmjenaKontakta(uniqeKontakt, ime=uniqeKontakt["ime"], prezime=uniqeKontakt["prezime"])
+                print("Promjena napravljena! Povratak u glavni izbornik....")
+            elif opcija == 4:
+                uniqeKontakt = IzmjenaKontakta(uniqeKontakt)
+                print("Promjena napravljena! Povratak u glavni izbornik....")
+            elif opcija == 0:
+                print("Povratak u glavni izbornik...")    
         except:
                 print("Pogrešan ID kontakta, pokusaj ponovno!")
     else:
         print("Imenik prazan. Povratak u glavni izbornik...")
-        time.sleep(2)
-        system("clear")
+    
+    time.sleep(2)
+    system("clear")
+    ispisImenika(imenik)
+
+def IzmjenaKontakta(imenik, ime = None, prezime = None, brojTelefona = None):
+    if ime == None and prezime != None and brojTelefona != None:
+        imenik["ime"] = input("Unesi novo ime za kontakt: ")
+        imenik["vrijemeKreiranjaZapisa"] = int(dt.now().timestamp())
+    elif prezime == None and ime != None and brojTelefona != None:
+        imenik["prezime"] = input("Unesi novo prezime za kontakt: ")
+        imenik["vrijemeKreiranjaZapisa"] = int(dt.now().timestamp())
+    elif brojTelefona == None and prezime != None and ime != None:
+        imenik["brojTelefona"] = input("Unesi novi broj za kontakt: ")
+        imenik["vrijemeKreiranjaZapisa"] = int(dt.now().timestamp())
+    else:
+        imenik["ime"] = input("Unesi ime kontakta: ")
+        imenik["prezime"] = input("Unesi prezime kontakta: ")
+        imenik["brojTelefona"] = input("Unesi telefonski broj kontakta: ")
+        imenik["vrijemeKreiranjaZapisa"] = int(dt.now().timestamp())
 
 if __name__ == "__main__":
     flag = True
@@ -147,6 +196,6 @@ if __name__ == "__main__":
         elif opcija == 3:
             brisanjeKontakta(imenik)
         elif opcija == 4:
-            izmjenaKontakta(imenik)
+            odabirIzmjenaKontakta(imenik)
         elif opcija == 5:
             ispisPoIndexu(imenik)
