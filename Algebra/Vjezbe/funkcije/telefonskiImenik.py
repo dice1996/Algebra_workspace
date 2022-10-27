@@ -16,19 +16,6 @@ Napraviti izbornik:
 Aplikacija se vrti dok korisnik ne pritisne 0
 Ako se odabere bilo što osim navedenih funkcija, vratiti poruku da opcija ne postoji
 """
-"""
-            uniqeKontakt = imenik[izbor-1]
-            uniqeKontakt["ime"] = input("Unesi ime kontakta: ")
-            uniqeKontakt["prezime"] = input("Unesi prezime kontakta: ")
-            uniqeKontakt["brojTelefona"] = input("Unesi telefonski broj kontakta: ")
-            uniqeKontakt["vrijemeKreiranjaZapisa"] = int(dt.now().timestamp())
-            print("Promjena napravljena! Povratak u glavni izbornik....")
-            time.sleep(2)
-            system("clear") 
-"""
-
-
-
 from os import system
 from pomocne_funkcije import *
 import time
