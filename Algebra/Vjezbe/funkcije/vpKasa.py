@@ -68,6 +68,18 @@ glavniIzbornik = {
     0: "Izlaz iz aplikacije"
 }
 
+def unesiCijeliBroj(text = None, index = None):
+    while True:
+        try:
+            if text is None and index is None:
+                return int(input("Unesi broj: "))
+            elif text is None and index is not None:
+                return int(input(f"Unesi {index}. broj: "))
+            else:
+                return int(input(text))
+        except:
+            print("Krivi unos")
+
 def ispisIzbornika(izbornik):
     for item in izbornik:
         print(f"{item}. {izbornik[item]}")
@@ -143,6 +155,7 @@ def dodajRacun(listaKafica: list, listaRacuna: list):
     for element in listaKafica:
         if int(element["id"]) == izbor:
             flag = True
+            iznos_pologa = element["polog"]
             break
         else:
             pass
@@ -157,11 +170,19 @@ def dodajRacun(listaKafica: list, listaRacuna: list):
             except:
                 print("Pogresan unos. Pokusaj ponovno!")
         noviRacun["vrijeme_izdavanja"] = int(dt.now().timestamp())
-
-        listaRacuna.append(noviRacun)
-        azurirajIznosPologa(listaKafica, noviRacun["iznos"], izbor, "-" )
-
-        print("Podaci uspješno uneseni. Povratak u glavni izbornik...")
+        
+        if float(iznos_pologa) < 0:
+            if input(f"Kupac nam duguje {iznos_pologa*(-1)}. Želite li mu izdati novi racun (d/n): ").upper() == "D":
+                listaRacuna.append(noviRacun)
+                azurirajIznosPologa(listaKafica, noviRacun["iznos"], izbor, "-" )
+                print("Podaci uspješno uneseni. Povratak u glavni izbornik...")
+            else:
+                print("Racun nije unesen! Povratak u glavni izbornik...")
+        elif float(iznos_pologa) > 0:
+            listaRacuna.append(noviRacun)
+            azurirajIznosPologa(listaKafica, noviRacun["iznos"], izbor, "-" )
+            print("Podaci uspješno uneseni. Povratak u glavni izbornik...")
+        
     time.sleep(2)
     system("clear")
 
