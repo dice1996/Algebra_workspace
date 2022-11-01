@@ -15,9 +15,7 @@ import os
 from popis_filmova import *
 from popis_korisnika import *
 
-izdani_filmovi = [
-
-    ]
+izdani_filmovi = []
 
 glavniIzbornik = {
     1: "Ispis svih članova",
