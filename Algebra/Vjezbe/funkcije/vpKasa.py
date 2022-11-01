@@ -48,11 +48,11 @@ racun = {
     "vrijeme_izdavanja": None
 }
 """
-from os import system
 from pomocne_funkcije import *
 import time
 from datetime import datetime as dt
 from prettytable import PrettyTable
+import os
 
 kasa = {
     "kafici": [],
@@ -67,6 +67,9 @@ glavniIzbornik = {
     5: "Povijest prodaje",
     0: "Izlaz iz aplikacije"
 }
+
+def ocisti_ekran():
+    os.system("cls" if os.name == "nt" else "clear")
 
 def unesiCijeliBroj(text = None, index = None):
     while True:
@@ -92,17 +95,17 @@ def unosOpcije(izbornik):
         if izbor not in izbornik.keys():
             print("Unije validan unos! Pokusaj ponovno!")
             time.sleep(2)
-            system("clear")
+            ocisti_ekran()
         else:
             if izbor == 0:
-                system("clear")
+                ocisti_ekran()
                 print("Kraj programa!")
                 return 0
             else:
                 return izbor
 
 def dodajKafic(lista: list):
-    system("clear")
+    ocisti_ekran()
     kafic = dict()
     if lista == []:
         kafic["id"] = str(1).zfill(3)
@@ -117,10 +120,10 @@ def dodajKafic(lista: list):
     lista.append(kafic)
     print("Podaci uspješno uneseni. Povratak u glavni izbornik...")
     time.sleep(2)
-    system("clear")
+    ocisti_ekran()
 
 def funkcijaIspisaKafica(lista: list, index = None):
-    system("clear")
+    ocisti_ekran()
     t = PrettyTable(["ID", "KAFIC", "VLASNIK", "GRAD", "POLOG", "KOD KAFICA", "KREIRANO"], padding_width = 4)
     if index == None:
         print(f"Popis sadrži {len(lista)} objekat/a:")
@@ -132,7 +135,7 @@ def funkcijaIspisaKafica(lista: list, index = None):
     print(f"{t}\n")
 
 def funkcijaIspisaRacuna(lista: list, index = None):
-    system("clear")
+    ocisti_ekran()
     ukupno = 0
     t = PrettyTable(["ID KAFICA", "IZNOS RACUNA", "KREIRANO"], padding_width = 4)
     if index == None:
@@ -147,7 +150,7 @@ def funkcijaIspisaRacuna(lista: list, index = None):
     print(f"Ukupan iznos izdanih racuna je {ukupno} kn.\n")
 
 def dodajRacun(listaKafica: list, listaRacuna: list):
-    system("clear")
+    ocisti_ekran()
     noviRacun = {}
     funkcijaIspisaKafica(listaKafica)
     izbor = unesiCijeliBroj("\nUnesi ID kafica za izdavanje racuna: ")
@@ -184,7 +187,7 @@ def dodajRacun(listaKafica: list, listaRacuna: list):
             print("Podaci uspješno uneseni. Povratak u glavni izbornik...")
         
     time.sleep(2)
-    system("clear")
+    ocisti_ekran()
 
 def azurirajIznosPologa(listaKafica: list, iznos: float, izbor : int, operation = None):
     item = listaKafica[izbor-1]
@@ -194,7 +197,7 @@ def azurirajIznosPologa(listaKafica: list, iznos: float, izbor : int, operation 
         item["polog"] = float(item["polog"]) - iznos
 
 def dodajPolog(listaKafica: list):
-    system("clear")
+    ocisti_ekran()
     funkcijaIspisaKafica(listaKafica)
     izbor = unesiCijeliBroj("\nUnesi ID kafica za izdavanje racuna: ")
     flag = False
@@ -216,11 +219,11 @@ def dodajPolog(listaKafica: list):
         azurirajIznosPologa(listaKafica, iznos, izbor)
         print("Podaci uspješno uneseni. Povratak u glavni izbornik...")
     time.sleep(2)
-    system("clear")
+    ocisti_ekran()
 
 if __name__ == "__main__":
     flag = True
-    system("clear")
+    ocisti_ekran()
     while flag:
         opcija = unosOpcije(glavniIzbornik)
         if opcija == 0:
