@@ -172,16 +172,25 @@ def nadoplati_racun():
         ocisti_ekran()
 
 def vratiFilm (lista: list):
-    id_naloga = unesiCijeliBroj("Unesi prva 3 broja naloga po kojem je film posuđen: ")
-    for item in lista:
-        var = []
-        var = item["id_naloga"]
-        var = var.split("-")
-        if int(var[0]) == int(id_naloga):
-            item["film_vracen"] = True
-            print("Podaci uspješno uneseni. Povratak u glavni izbornik...")
+    if lista == []: 
+            print("Ne postoje zapisi u listi. Povratak u glavni izbornik...")
             time.sleep(2)
             ocisti_ekran()
+    else:
+        id_naloga = unesiCijeliBroj("Unesi prva 3 broja naloga po kojem je film posuđen: ")
+        for item in lista:
+            var = []
+            var = item["id_naloga"]
+            var = var.split("-")
+            if int(var[0]) == int(id_naloga):
+                item["film_vracen"] = True
+                print("Podaci uspješno uneseni. Povratak u glavni izbornik...")
+                time.sleep(2)
+                ocisti_ekran()
+            elif int(var[0]) != int(id_naloga):
+                print("Uneseni ID ne postoji. Povratak u glavni izbornik...")
+                time.sleep(2)
+                ocisti_ekran()
 
 def search(ime):
     lista_pretrage = ime.split()
