@@ -7,6 +7,12 @@ kreirati u formatu npr: 001-ID_KORISNIKA-ID_FILMA-GODINA
 
 001-025-018-2022
 
+
+"id_naloga"          
+"id_kupca"
+"id_filma"
+"vrijeme_kreiranja"
+"film_vracen"
 """
 import time
 from datetime import datetime as dt
@@ -16,12 +22,14 @@ from popis_filmova import *
 from popis_korisnika import *
 
 izdani_filmovi = []
+IZNOS = 25
 
 glavniIzbornik = {
     1: "Ispis svih članova",
     2: "Ispis posuđenih filmova",
     3: "Posudi film",
     4: "Vrati film",
+    5: "Nadoplati račun",
     0: "Izlaz iz aplikacije"
 }
 
@@ -70,9 +78,14 @@ def funkcijaIspisa(lista: list, index = None):
         for item in lista:
             t.add_row([str(item["id"]).zfill(3), item["ime"], item["stanje_racuna"], dt.fromisoformat(item["vrijeme_kreiranja"]).strftime("%d.%m.%Y.")])
     else:
-        t = PrettyTable(["ID NALOGA", "IME KUPCA", "IME FILMA", "VRIJEME POSUDBE", "FILM VRAĆEN"], padding_width = 3, hrules=ALL)
+        t = PrettyTable(["ID NALOGA", "IME KUPCA", "IME FILMA", "VRIJEME POSUDBE", "FILM VRAćEN"], padding_width = 3, hrules=ALL)
         for mainItem in lista:
-            t.add_row([str(mainItem["id_naloga"]), mainItem["ime_kupca"], mainItem["ime_filma"], dt.fromisoformat(mainItem["vrijeme_kreiranja"]).strftime("%d.%m.%Y."), ""])
+            check = None
+            if mainItem["film_vracen"] == False:
+                check = "\u274c"
+            else:
+                check = "\u2713"
+            t.add_row([str(mainItem["id_naloga"]), mainItem["ime_kupca"], mainItem["ime_filma"], dt.fromisoformat(mainItem["vrijeme_kreiranja"]).strftime("%d.%m.%Y."), check])
     print(f"{t}\n")
 
 def posudiFilm(lista: list):
@@ -83,49 +96,92 @@ def posudiFilm(lista: list):
     for item in popis_korisnika:
         if item["id"] == izbor:
             flag = True
-   
     if flag == False:
         print("Pogresan ID. Pokusaj ponovno...")
+        time.sleep(2)
+        ocisti_ekran()
     else:
-        flag = False 
-        odluka = search(input("Unesi jednu do dvije riječi imena filma: ")) 
-        if odluka == 0:
-            print("Nema filma na popisu. Povratak u glavni izbornik...")
+        if popis_korisnika[izbor - 1]["stanje_racuna"] < 25:
+            print("Član ima manji slado od 25kn. Nije moguće podići film dok se račun ne nadoplati. Povratak u glavni izbornik...")
             time.sleep(2)
             ocisti_ekran()
         else:
-            izbor_film = unesiCijeliBroj("Unesi ID filma koji član posuđuje (unesi 0 za prekid): ")
-            for item in popis_filmova:
-                if izbor_film == item["id"]:
-                    flag = True
-            if flag == False:
-                if izbor_film == 0:
-                    print("Povratak u glavni izbornik...")
-                else:
-                    print("Pogresan ID. Pokusaj ponovno...")
+            flag = False 
+            odluka = search(input("Unesi jednu do dvije riječi imena filma: ")) 
+            if odluka == 0:
+                print("Nema filma na popisu. Povratak u glavni izbornik...")
                 time.sleep(2)
                 ocisti_ekran()
             else:
-                if lista == []:
-                    novi_nalog["id_naloga"] = str(1).zfill(3) + "-" + str(izbor).zfill(3) + "-" + str(izbor_film).zfill(3) + "-" + dt.now().strftime("%Y")
+                izbor_film = unesiCijeliBroj("Unesi ID filma koji član posuđuje (unesi 0 za prekid): ")               
+                for item in popis_filmova:
+                    if izbor_film == item["id"]:
+                        flag = True              
+                if flag == False:
+                    if izbor_film == 0:
+                        print("Povratak u glavni izbornik...")
+                    else:
+                        print("Pogresan ID. Pokusaj ponovno...")
+                    time.sleep(2)
+                    ocisti_ekran()            
                 else:
-                    pomocna = lista[-1]["id_naloga"]
-                    pomocna_lista = pomocna.split("-")
-                    novi_nalog["id_naloga"] = str(int(pomocna_lista[0]) + 1).zfill(3) + "-" + str(izbor).zfill(3) + "-" + str(izbor_film).zfill(3) + "-" + dt.now().strftime("%Y")
-                
-                novi_nalog["id_kupca"] = izbor
-                novi_nalog["id_filma"] = izbor_film
-                for item1 in popis_korisnika:
-                    if item1["id"] == izbor:
-                        novi_nalog["ime_kupca"] = item1["ime"]
-                for item2 in popis_filmova:
-                    if item2["id"] == izbor_film:
-                        novi_nalog["ime_filma"] = item2["ime"]
-                novi_nalog["vrijeme_kreiranja"] = dt.now().strftime("%Y-%m-%d")
-                lista.append(novi_nalog)
-                print("Podaci uspješno uneseni. Povratak u glavni izbornik...")
-                time.sleep(2)
-                ocisti_ekran()
+                    azuriraj_saldo(izbor, IZNOS, "-")
+                    if lista == []:
+                        novi_nalog["id_naloga"] = str(1).zfill(3) + "-" + str(izbor).zfill(3) + "-" + str(izbor_film).zfill(3) + "-" + dt.now().strftime("%Y")     
+                    else:
+                        pomocna = lista[-1]["id_naloga"]
+                        pomocna_lista = pomocna.split("-")
+                        novi_nalog["id_naloga"] = str(int(pomocna_lista[0]) + 1).zfill(3) + "-" + str(izbor).zfill(3) + "-" + str(izbor_film).zfill(3) + "-" + dt.now().strftime("%Y")    
+                    novi_nalog["id_kupca"] = izbor
+                    novi_nalog["id_filma"] = izbor_film     
+                    for item1 in popis_korisnika:
+                        if item1["id"] == izbor:
+                            novi_nalog["ime_kupca"] = item1["ime"]     
+                    for item2 in popis_filmova:
+                        if item2["id"] == izbor_film:
+                            novi_nalog["ime_filma"] = item2["ime"]
+                    novi_nalog["vrijeme_kreiranja"] = dt.now().strftime("%Y-%m-%d")
+                    novi_nalog["film_vracen"] = False
+                    lista.append(novi_nalog)
+                    print("Podaci uspješno uneseni. Povratak u glavni izbornik...")
+                    time.sleep(2)
+                    ocisti_ekran()
+
+def azuriraj_saldo (id: int, IZNOS: int, operation = None ):
+    item = popis_korisnika[id - 1]
+    if operation == "+":
+        item["stanje_racuna"] += IZNOS
+    elif operation == "-":
+        item["stanje_racuna"] -= IZNOS
+
+def nadoplati_racun():
+    id_racuna = unesiCijeliBroj("Unesi ID računa koji želiš nadoplatiti: ")
+    flag = False
+    for item in popis_korisnika:
+        if item["id"] == id_racuna:
+            flag = True
+    if flag:
+        iznos = unesiCijeliBroj("Unesi iznos u kunama koji želiš nadoplatiti (unos bez lipa): ")
+        azuriraj_saldo(id_racuna, iznos, "+")
+        print("Račun uspješno ažuriran. Povratak u glavni izbornik...")
+        time.sleep(2)
+        ocisti_ekran()
+    else:
+        print("Pogrešan ID. Povratak u glavni izbornik...")
+        time.sleep(2)
+        ocisti_ekran()
+
+def vratiFilm (lista: list):
+    id_naloga = unesiCijeliBroj("Unesi prva 3 broja naloga po kojem je film posuđen: ")
+    for item in lista:
+        var = []
+        var = item["id_naloga"]
+        var = var.split("-")
+        if int(var[0]) == int(id_naloga):
+            item["film_vracen"] = True
+            print("Podaci uspješno uneseni. Povratak u glavni izbornik...")
+            time.sleep(2)
+            ocisti_ekran()
 
 def search(ime):
     lista_pretrage = ime.split()
@@ -157,4 +213,6 @@ if __name__ == "__main__":
         elif opcija == 3:
             posudiFilm(izdani_filmovi)
         elif opcija == 4:
-            pass
+            vratiFilm(izdani_filmovi)
+        elif opcija == 5:
+            nadoplati_racun()

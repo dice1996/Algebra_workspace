@@ -107,7 +107,7 @@ popis_korisnika = [{
   "id": 22,
   "ime": "Jan Van Der Vlies",
   "vrijeme_kreiranja": "2022-05-30",
-  "stanje_racuna": 145.4
+  "stanje_racuna": 24.33
 }, {
   "id": 23,
   "ime": "Heindrick Corradino",
