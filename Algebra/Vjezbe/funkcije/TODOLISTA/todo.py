@@ -125,7 +125,7 @@ def toggleStatusa(lista: list):
     izbor = unesiCijeliBroj("Unesi ID zadatka kojem želiš promijeniti status: ")
     flag = False
     for item in lista:
-        if item["id"] == izbor:
+        if item["id"] == izbor and item["vrijemeIzvrsavanja"] == None:
             flag = True
     if flag == False:
         print("Pogrešan ID. Pokušaj ponovno...")
