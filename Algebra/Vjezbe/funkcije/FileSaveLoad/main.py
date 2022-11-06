@@ -4,7 +4,7 @@ import os
 l = []
 
 #ODNOSI SE NA MOJ SETUP, MORAŠ POGLEDATI KOJI JE APSOLUTNI PUT NA TVOM RAČUNALU
-fname = "file.p" 
+fname = "/config/workspace/Algebra_workspace/Algebra/Vjezbe/funkcije/FileSaveLoad/file.p" 
 
 def dodajFilm(l: list):
     k = dict()
@@ -25,7 +25,7 @@ def save_load(fname, lista: list,  index = None):
         p.dump(lista, open( fname, "wb" ))
     else: #FUNKCIJA LOAD
         if os.path.getsize(fname) > 0: #PROVJERA POSTOJE LI VEĆ ZAPISI U FILEU
-            return p.load( open( fname, "rb" ) )
+           return p.load( open( fname, "rb" ) )
         else:
             return []
 
