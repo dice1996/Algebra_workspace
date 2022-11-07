@@ -51,7 +51,7 @@ racun = {
 from pomocne_funkcije import *
 import time
 from datetime import datetime as dt
-from prettytable import PrettyTable
+from prettytable import PrettyTable, ALL
 import os
 
 kasa = {
@@ -124,7 +124,7 @@ def dodajKafic(lista: list):
 
 def funkcijaIspisaKafica(lista: list, index = None):
     ocisti_ekran()
-    t = PrettyTable(["ID", "KAFIC", "VLASNIK", "GRAD", "POLOG", "KOD KAFICA", "KREIRANO"], padding_width = 4)
+    t = PrettyTable(["ID", "KAFIC", "VLASNIK", "GRAD", "POLOG", "KOD KAFICA", "KREIRANO"], padding_width = 4, hrules=ALL)
     if index == None:
         print(f"Popis sadrži {len(lista)} objekat/a:")
         for item in lista:
@@ -137,7 +137,7 @@ def funkcijaIspisaKafica(lista: list, index = None):
 def funkcijaIspisaRacuna(lista: list, index = None):
     ocisti_ekran()
     ukupno = 0
-    t = PrettyTable(["ID KAFICA", "IZNOS RACUNA", "KREIRANO"], padding_width = 4)
+    t = PrettyTable(["ID KAFICA", "IZNOS RACUNA", "KREIRANO"], padding_width = 4, hrules=ALL)
     if index == None:
         print(f"Popis sadrži {len(lista)} racun/a:")
         for item in lista:
