@@ -43,12 +43,16 @@ def pretraziKorisnike(l: list):
     print("- - pretraga po imenu i prezimenu - -")
     i = input("Ime: ")
     p = input("Prezime: ")
-    flag = False
+    #koristi se kako bi isporisali poruku ne postoji ili krivi unos
+    flag = False 
     for korisnik in l:
         if i.lower() == (korisnik['make']).lower() and p.lower() == (korisnik['model']).lower():
+            #ako uđe u petlju, printa model auta i mijenja flag u True te breaka iz for petlje jer smo našli rješenje
             print(korisnik)
             flag = True
             break
+    
+    #Ovo se ispisuje samo ako nikad nije ušao u gornju if petlju
     if flag == False:
         print("Ne postoji ili krivi unos.")
 
