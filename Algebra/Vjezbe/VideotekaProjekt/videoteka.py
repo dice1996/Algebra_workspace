@@ -178,6 +178,7 @@ def vratiFilm (lista: list):
             ocisti_ekran()
     else:
         id_naloga = unesiCijeliBroj("Unesi prva 3 broja naloga po kojem je film posuđen: ")
+        flag = False
         for item in lista:
             var = []
             var = item["id_naloga"]
@@ -186,11 +187,13 @@ def vratiFilm (lista: list):
                 item["film_vracen"] = True
                 print("Podaci uspješno uneseni. Povratak u glavni izbornik...")
                 time.sleep(2)
+                flag = True
                 ocisti_ekran()
-            elif int(var[0]) != int(id_naloga):
-                print("Uneseni ID ne postoji. Povratak u glavni izbornik...")
-                time.sleep(2)
-                ocisti_ekran()
+                break
+        if flag == False:    
+            print("Uneseni ID ne postoji. Povratak u glavni izbornik...")
+            time.sleep(2)
+            ocisti_ekran()
 
 def search(ime):
     lista_pretrage = ime.split()
