@@ -43,7 +43,7 @@ def pretraziKorisnike(l: list):
     print("- - pretraga po imenu i prezimenu - -")
     i = input("Ime: ")
     p = input("Prezime: ")
-    #koristi se kako bi isporisali poruku ne postoji ili krivi unos
+    #koristi se kako bi ispisali poruku ne postoji ili krivi unos
     flag = False 
     for korisnik in l:
         if i.lower() == (korisnik['make']).lower() and p.lower() == (korisnik['model']).lower():
