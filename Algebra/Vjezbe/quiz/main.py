@@ -53,7 +53,7 @@ def start(QUESTIONS, fname_r):
 
         answer = labeled_choices[answer_label]
         if answer == correct_answer:
-            print("⭐ Točno! ⭐")
+            print("Točno!")
             time.sleep(2)
         else:
             print(f'''Odgovor je '{correct_answer}', a ne '{answer}' ''')
