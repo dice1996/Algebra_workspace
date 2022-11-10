@@ -2,4 +2,4 @@
 2;Koji je trenutno najkoristeniji Python framework?;Web2py;Flask;Django;Pyramid;Django
 3;Memorijski prostor u koji spremamo neku vrijednost, te vrijednosti dajemo simbolicno ime, u programiranju tu vrijednost zovemo?;Dictionary;List;Integer;Varijabla;Varijabla
 4;Za trenutni prekid izvodenja petlje koristimo kljucnu rijec;pass;continue;break;while;break
-5;Kada ne znamo tocan broj ponavljanja neke petlje, najcesce koristimo koju petlju?;while;for;if-else;match-case
+5;Kada ne znamo tocan broj ponavljanja neke petlje, najcesce koristimo koju petlju?;while;for;if-else;match-case;while
