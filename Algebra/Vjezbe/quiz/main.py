@@ -5,7 +5,7 @@ import time
 
 fname_r = "/config/workspace/Algebra_workspace/Algebra/Vjezbe/quiz/pitanja.txt" 
 fname_a = "/config/workspace/Algebra_workspace/Algebra/Vjezbe/quiz/score.txt"
-QUESTIONS = {}
+
 
 def readFile(ime: str):
     exists = os.path.isfile(ime)   #True/False 
@@ -25,17 +25,22 @@ def appendToFile(s : str, fname: str):
     file.write(s)
     file.close()
 
-def prepareQuestions(fname_r):
+def prepareQuestions(fname_r,  QUESTIONS: dict):
 
     linije = readFile(fname_r)
     for linija in linije:
         elementi = linija.strip().split(";")
         elementi.pop(0)
         QUESTIONS[elementi[0]] = [elementi[1], elementi[2], elementi[3], elementi[4], elementi[5]]
+    
+    l = list(QUESTIONS.items())
+    random.shuffle(l)
+    QUESTIONS = dict(l)
+    return QUESTIONS
 
-def start(QUESTIONS, fname_r):
-
-    prepareQuestions(fname_r)
+def start(fname_r):
+    QUESTIONS = {}
+    QUESTIONS = prepareQuestions(fname_r, QUESTIONS)
 
     for index, (question, choices) in enumerate(QUESTIONS.items(), start=1):
         ocisti_ekran()
@@ -44,7 +49,8 @@ def start(QUESTIONS, fname_r):
         choices = choices.copy()
         correct_answer = choices[-1]
         choices.pop(-1)
-        labeled_choices = dict(zip(al, sorted(choices)))
+        random.shuffle(choices)
+        labeled_choices = dict(zip(al, (choices)))
         for label, choice in labeled_choices.items():
             print(f"  {label}) {choice}")
         
@@ -64,6 +70,6 @@ def ocisti_ekran():
 
 if __name__ == "__main__":
 
-    start(QUESTIONS, fname_r)
+    start(fname_r)
     
     
