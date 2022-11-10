@@ -1,6 +1,6 @@
 import os
 import random
-from string import ascii_lowercase
+from string import ascii_lowercase as al
 import time
 
 fname_r = "/config/workspace/Algebra_workspace/Algebra/Vjezbe/quiz/pitanja.txt" 
@@ -37,14 +37,14 @@ def start(QUESTIONS, fname_r):
 
     prepareQuestions(fname_r)
 
-    for num, (question, choices) in enumerate(QUESTIONS.items(), start=1):
+    for index, (question, choices) in enumerate(QUESTIONS.items(), start=1):
         ocisti_ekran()
-        print(f"\nPitanje {num}:")
+        print(f"\nPitanje {index}:")
         print(f"{question}?")
         choices = choices.copy()
         correct_answer = choices[-1]
         choices.pop(-1)
-        labeled_choices = dict(zip(ascii_lowercase, sorted(choices)))
+        labeled_choices = dict(zip(al, sorted(choices)))
         for label, choice in labeled_choices.items():
             print(f"  {label}) {choice}")
         
