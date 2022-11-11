@@ -45,7 +45,7 @@ def start(fname_r):
     for index, (question, choices) in enumerate(QUESTIONS.items(), start=1):
         ocisti_ekran()
         print(f"\nPitanje {index}:")
-        print(f"{question}?")
+        print(f"{question}\n")
         choices = choices.copy()
         correct_answer = choices[-1]
         choices.pop(-1)
