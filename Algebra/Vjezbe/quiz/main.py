@@ -8,7 +8,6 @@ from datetime import datetime as dt
 fname_r = "/config/workspace/Algebra_workspace/Algebra/Vjezbe/quiz/pitanja.txt" 
 fname_a = "/config/workspace/Algebra_workspace/Algebra/Vjezbe/quiz/score.txt"
 
-
 def readFile(ime: str):
     exists = os.path.isfile(ime)   #True/False 
     if exists:
@@ -118,4 +117,3 @@ if __name__ == "__main__":
         print(f"Tvoj broj bodova je {int(points)} i trenutno najbolji rezultat!\nBravo!")
     else:
         print(f"Tvoj broj bodova je {int(points)}!\nBravo!")
-    
