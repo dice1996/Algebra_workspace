@@ -206,7 +206,6 @@ def polog(bazaRacuna: list, prometPoRacunima: list):
 
 def podizanje(bazaRacuna:list, prometPoRacunima: list):
     clear_screen()
-    clear_screen()
     id_racuna = input("Unesi zadnjih 5 znamenaka svoga racuna: ")
     datum = dt.today().strftime("%d.%m.%Y")
     promet = {}
