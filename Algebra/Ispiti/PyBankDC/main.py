@@ -62,7 +62,6 @@ glavniIzbornik = {
 bazaRacuna = []
 prometPoRacunima = []
 
-
 #MODEL TVRTKE
 ACC_ID = "id"
 ACC_NAZIV = "naziv"
@@ -143,8 +142,8 @@ def novaTvrtka(bazaRacuna: list):
     tvrtka[ACC_OIB] = unesiOIB("Unesi OIB Tvrtke: ")
     tvrtka[ACC_ODGOVORNA_OSOBA] = input("Unesi ime i prezime odgovorne osobe Tvrtke: ")
     while True:
-        helper = input("Unesi valutu računa kojeg otvarate (HRK/EUR): ")
-        if helper.upper() == "HRK" or helper.upper() == "EUR":
+        helper = input("Unesi valutu računa kojeg otvarate (HRK/EUR): ").upper()
+        if helper == "HRK" or helper == "EUR":
             tvrtka[ACC_VALUTA] = helper
             break
         else:
@@ -158,33 +157,22 @@ def novaTvrtka(bazaRacuna: list):
 
 def stanjeRacuna(bazaRacuna: list):
     clear_screen()
-    id_racuna = input("Unesi zadnjih 5 znamenaka svoga racuna: ")
     datum = dt.today().strftime("%d.%m.%Y")
-    flag = False
-    for racun in bazaRacuna:
-        string = racun[ACC_ID]
-        string = string.split("-")
-        id_tvrtke = string[-1]
-        if id_tvrtke == id_racuna:
-            print(f"Stanje racuna {racun[ACC_ID]} na dan {datum} iznosi {racun[ACC_STANJE_RACUNA]} {racun[ACC_VALUTA]}")
-            flag = True
-            time.sleep(5)
-            clear_screen()
-    if flag != True:
-        print("Uneseni ID racuna ne postoji. Povratak u glavni izbornik.")
-        time.sleep(2)
+    racun, id_racuna = pronalazakRacuna(bazaRacuna)
+    if racun is not None:
+        print(f"Stanje racuna {racun[ACC_ID]} na dan {datum} iznosi {racun[ACC_STANJE_RACUNA]} {racun[ACC_VALUTA]}")
+        time.sleep(5)
         clear_screen()
 
 def polog(bazaRacuna: list, prometPoRacunima: list):
     clear_screen()
-    id_racuna = input("Unesi zadnjih 5 znamenaka svoga racuna: ")
-    datum = dt.today().strftime("%d.%m.%Y")
     promet = {}
-    flag = False
-    for racun in bazaRacuna:
+    datum = dt.today().strftime("%d.%m.%Y")
+    racun, id_racuna = pronalazakRacuna(bazaRacuna)
+    if racun is not None:
         string = racun[ACC_ID]
         string = string.split("-")
-        id_tvrtke = string[-1]
+        id_tvrtke = string[-1]   
         if id_tvrtke == id_racuna:
             print(f"Stanje racuna {racun[ACC_ID]} na dan {datum} iznosi {racun[ACC_STANJE_RACUNA]} {racun[ACC_VALUTA]}\n")
             iznosPologa = unesiCijeliBroj(f"Unesi polog za racun {racun[ACC_ID]} u valuti {racun[ACC_VALUTA]} (koristi krupne iznose): ")
@@ -194,25 +182,19 @@ def polog(bazaRacuna: list, prometPoRacunima: list):
             promet[TR_IZNOS] = iznosPologa
             promet[TR_CREATED] = int(dt.now().timestamp())
             prometPoRacunima.append(promet)
-            flag = True
             print("Polog uspješno dodan. Povratak u glavni izbornik...")
             time.sleep(2)
             clear_screen()
-    if flag != True:
-        print("Uneseni ID racuna ne postoji. Povratak u glavni izbornik.")
-        time.sleep(2)
-        clear_screen()
 
 def podizanje(bazaRacuna:list, prometPoRacunima: list):
     clear_screen()
-    id_racuna = input("Unesi zadnjih 5 znamenaka svoga racuna: ")
     datum = dt.today().strftime("%d.%m.%Y")
     promet = {}
-    flag = False
-    for racun in bazaRacuna:
+    racun, id_racuna = pronalazakRacuna(bazaRacuna)
+    if racun is not None:
         string = racun[ACC_ID]
         string = string.split("-")
-        id_tvrtke = string[-1]
+        id_tvrtke = string[-1]   
         if id_tvrtke == id_racuna:
             print(f"Stanje racuna {racun[ACC_ID]} na dan {datum} iznosi {racun[ACC_STANJE_RACUNA]} {racun[ACC_VALUTA]}")
             iznosPodizanja = unesiCijeliBroj(f"Unesi iznos podizanja za racun {racun[ACC_ID]} u valuti {racun[ACC_VALUTA]} (koristi krupne iznose): ")
@@ -233,20 +215,15 @@ def podizanje(bazaRacuna:list, prometPoRacunima: list):
                 print("Transakcija otkazana. Povratak u glavni izbornik...")
                 time.sleep(2)
                 clear_screen()
-    if flag != True:
-        print("Uneseni ID racuna ne postoji. Povratak u glavni izbornik.")
-        time.sleep(2)
-        clear_screen()
 
 def ispisPrometa(bazaRacuna:list, prometPoRacunima: list):
     clear_screen()
-    id_racuna = input("Unesi zadnjih 5 znamenaka svoga racuna: ")
     promet = {}
-    flag = False
-    for racun in bazaRacuna:
+    racun, id_racuna = pronalazakRacuna(bazaRacuna)
+    if racun is not None:
         string = racun[ACC_ID]
         string = string.split("-")
-        id_tvrtke = string[-1]
+        id_tvrtke = string[-1]   
         if id_tvrtke == id_racuna:
             clear_screen()
             ukupanPromet = 0
@@ -265,11 +242,22 @@ def ispisPrometa(bazaRacuna:list, prometPoRacunima: list):
             print("Povratak u glavni izbornik...\n")
             time.sleep(2)
             flag = True
+
+def pronalazakRacuna(bazaRacuna:list):
+    id_racuna = input("Unesi zadnjih 5 znamenaka svoga racuna: ")
+    flag = False
+    for racun in bazaRacuna:
+        string = racun[ACC_ID]
+        string = string.split("-")
+        id_tvrtke = string[-1]
+        if id_tvrtke == id_racuna:
+            return racun, id_racuna
     if flag != True:
         print("Uneseni ID racuna ne postoji. Povratak u glavni izbornik.")
         time.sleep(2)
         clear_screen()
-
+        return None, None
+        
 # if name is main
 if __name__ == "__main__":
     flag = True
