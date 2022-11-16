@@ -123,7 +123,7 @@ def unesiOIB(s):
         try:   
             var = input(s)
             if len(var) != 11:
-                print("Ponovi unos OIB-a. Mora biti duljine 11 znakova...")
+                print("Ponovi unos. Mora biti duljine 11 znakova...")
             else:
                 int(var)
                 return var
