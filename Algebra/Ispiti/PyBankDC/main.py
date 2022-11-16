@@ -74,13 +74,12 @@ ACC_ODGOVORNA_OSOBA = "odgovornaOsoba"
 ACC_STANJE_RACUNA = "stanjeRacune"
 ACC_VALUTA = "valuta"
 
-#MODLE TRANSAKCIJA
+#MODEL TRANSAKCIJA
 TR_AKCIJA = "akcija" #može biti IN ili OUT
 TR_IZNOS = "iznos"
 TR_CREATED = "created"
 
 #Standardne funkcije
-
 def clear_screen():
     os.system("cls" if os.name == "nt" else "clear")
 
