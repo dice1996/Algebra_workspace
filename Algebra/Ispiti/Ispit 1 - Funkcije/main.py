@@ -6,7 +6,10 @@ from prettytable import PrettyTable, ALL
 import os
 
 # definiranje korištenih varijabli , lista, dictova,...
-glavniIzbornik = {}
+glavniIzbornik = {
+    1: "Test",
+    0: "Kraj programa"
+}
 
 #Standardne funkcije
 
@@ -46,4 +49,25 @@ def unosOpcije(izbornik):
             else:
                 return izbor
 
-#Ostale funkcije               
+#Ostale funkcije
+
+
+
+# if name is main
+if __name__ == "__main__":
+    flag = True
+    clear_screen()
+    while flag:
+        opcija = unosOpcije(glavniIzbornik)
+        if opcija == 0:
+            flag = False
+        elif opcija == 1:
+            pass
+        elif opcija == 2:
+            pass
+        elif opcija == 3:
+            pass
+        elif opcija == 4:
+            pass
+        elif opcija == 5:
+            pass
