@@ -1,29 +1,31 @@
-from Videoteka import Videoteka
-from Film import Film
-from Korisnik import Korisnik
-from Povijest import Povijest
+from VideotekaService import VideotekaService 
+from Utils import Utils
+from Povijest import PovijestAkcija
 
-
+glavniIzbornik = {
+    1: "Upis filma",
+    2: "Upis korisnika",
+    3: "Posudi film",
+    4: "Vrati film",
+    5: "Ispis videoteke",
+    0: "Izlaz iz aplikacije"
+}
 
 if __name__ == "__main__":
-
-    videoteka = Videoteka()
-    film = Film("001", "naziv", 2022)
-    film2 = Film("002", "na121ziv", 2001)
-    videoteka.dodajFilm(film)
-    videoteka.dodajFilm(film2)
-
-    povijest = Povijest(2, "001", "POVRAT")
-    videoteka.dodajPovijest(povijest)
-    povijest = Povijest(3, "002", "NAJAM")
-    videoteka.dodajPovijest(povijest)
-
-    print(videoteka.listaFilmova)
-    videoteka.ispisPovijesti()
-
-
-    korisnik = Korisnik(1, "Dino", "Cerjak")
-    videoteka.dodajKorisnika(korisnik)
-    korisnik = Korisnik(3, "Ante", "Cerjak")
-    videoteka.dodajKorisnika(korisnik)
-    videoteka.ispisKorisnika()
+    service = VideotekaService()
+    idFilma = 1
+    idKorisnika = 1
+    while True:        
+        opcija = Utils.unosOpcije(glavniIzbornik)
+        if opcija == 0:
+            break
+        elif opcija == 1:
+            idFilma = service.dodajFilm(idFilma)
+        elif opcija == 2:
+            idKorisnika = service.dodajKorisnika(idKorisnika)
+        elif opcija == 3:
+            service.akcijaFilm(PovijestAkcija.posudi)
+        elif opcija == 4:
+            service.akcijaFilm(PovijestAkcija.vrati.value)
+        elif opcija == 5:
+            service.ispisVideoteke()

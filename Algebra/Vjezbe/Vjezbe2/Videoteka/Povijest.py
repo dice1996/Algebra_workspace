@@ -1,4 +1,10 @@
 from datetime import datetime as dt
+from enum import Enum
+
+class PovijestAkcija(Enum):
+    posudi = "POSUDEN"
+    vrati = "VRACEN"
+
 
 class Povijest():
     def __init__(self, korisnikID, filmID, akcija):

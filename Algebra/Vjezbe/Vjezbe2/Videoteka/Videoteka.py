@@ -23,3 +23,21 @@ class Videoteka:
     def ispisKorisnika(self):
         for k in self.listaKorisnika:
             print(k)
+    
+    def ispisFilmova(self):
+        for f in self.listaFilmova:
+            print(f)
+
+    def dohvatiFilmPoIdu(self, idFilma):
+        for f in self.listaFilmova:
+            if f.id == idFilma:
+                return f
+        return None
+        
+    def dohvatiKorisnikaPoIdu(self, idFilma):
+        for k in self.listaKorisnika:
+            if k.id == idFilma:
+                return k
+        return None
+
+
