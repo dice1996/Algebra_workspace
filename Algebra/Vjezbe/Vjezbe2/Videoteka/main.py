@@ -28,4 +28,4 @@ if __name__ == "__main__":
         elif opcija == 4:
             service.akcijaFilm(PovijestAkcija.vrati.value)
         elif opcija == 5:
-            service.ispisVideoteke()
+            service.ispisi()
